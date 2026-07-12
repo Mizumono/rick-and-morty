@@ -18,26 +18,30 @@ function Home() {
 	}
 
 	return (
-    <table>
-      <thead>
-        <tr>
-          <th>Avatar</th>
-          <th>Name</th>
-          <th>Species</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data?.results.map((character) => (
-          <tr key={character.id}>
-            <td><img alt={character.name} loading="lazy" src={character.image}/></td>
-            <td><Link to={`/profile/${character.id}`}>{character.name}</Link></td>
-            <td>{character.species}</td>
-            <td>{character.status}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <section className="section">
+      <div className="container">
+        <table>
+          <thead>
+            <tr>
+              <th>Avatar</th>
+              <th>Name</th>
+              <th>Species</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data?.results.map((character) => (
+              <tr key={character.id}>
+                <td><img alt={character.name} loading="lazy" src={character.image}/></td>
+                <td><Link to={`/profile/${character.id}`}>{character.name}</Link></td>
+                <td>{character.species}</td>
+                <td>{character.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
   );
 }
 

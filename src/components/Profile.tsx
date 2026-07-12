@@ -24,21 +24,23 @@ function Profile() {
   }
 
   return (
-    <section>
-      <h1>Profile</h1>
-      <img alt={data?.name} loading="lazy" src={data?.image} />
-      <p>
-        <strong>Name:</strong> {data?.name}
-      </p>
-      <p>
-        <strong>Species:</strong> {data?.species}
-      </p>
-      <p>
-        <strong>Status:</strong> {data?.status}
-      </p>
-      <p>
-        <Link to="/">Back to Home</Link>
-      </p>
+    <section className="section">
+      <div className="container">
+        <h1>Profile</h1>
+        <img alt={data?.name} loading="lazy" src={data?.image} />
+        <p>
+          <strong>Name:</strong> {data?.name}
+        </p>
+        <p>
+          <strong>Species:</strong> {data?.species}
+        </p>
+        <p>
+          <strong>Status:</strong> {data?.status}
+        </p>
+        <p>
+          <Link to="/">Back to Home</Link>
+        </p>
+      </div>
     </section>
   );
 }
