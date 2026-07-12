@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { fetchCharacters } from '../api/characters';
 import { useFetch } from '../hooks/useFetch';
 import type { CharacterListResponse } from '../types';
@@ -30,7 +31,7 @@ function Home() {
         {data?.results.map((character) => (
           <tr key={character.id}>
             <td><img alt={character.name} loading="lazy" src={character.image}/></td>
-            <td>{character.name}</td>
+            <td><Link to={`/profile/${character.id}`}>{character.name}</Link></td>
             <td>{character.species}</td>
             <td>{character.status}</td>
           </tr>
