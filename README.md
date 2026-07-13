@@ -1,32 +1,41 @@
-# React + TypeScript + Vite
+# Rick & Morty Character Browser
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A small single-page app built for the Genesys Senior Frontend Engineer take-home assignment. It lists characters from the [Rick & Morty API](https://rickandmortyapi.com/) on a Home page, and lets you open a Profile page for any character.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Home page** — table of characters (avatar, name, species, status) pulled from the API
+- **Profile page** — full character details, reached by clicking a name; includes a Back link to Home
+- **Pagination** — navigate through the full character list, not just the first page
+- **Search** — filter characters by name, debounced to avoid firing a request on every keystroke
+- Distinct **loading**, **empty-results**, and **error** states, instead of collapsing them into one generic message
+- A dedicated **not-found** state on the Profile page for invalid character IDs
+- Wildcard route that redirects unknown URLs back to Home
 
-## React Compiler
+## Tech stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vite.dev/) for dev server and build
+- [React Router](https://reactrouter.com/) for client-side routing
+- CSS Modules, with a shared color/radius palette defined as CSS custom properties in `src/index.css`
+- [Oxlint](https://oxc.rs/) for linting, [Prettier](https://prettier.io/) for formatting
 
-## Expanding the Oxlint configuration
+## Getting started
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+The app runs at `http://localhost:5173` by default.
+
+## Scripts
+
+| Command                | Description                              |
+| ---------------------- | ---------------------------------------- |
+| `npm run dev`          | Start the local dev server               |
+| `npm run build`        | Type-check and build for production      |
+| `npm run preview`      | Preview the production build locally     |
+| `npm run lint`         | Run Oxlint                               |
+| `npm run format`       | Format all files with Prettier           |
+| `npm run format:check` | Check formatting without writing changes |
