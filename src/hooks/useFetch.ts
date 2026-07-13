@@ -3,7 +3,7 @@ import { useEffect, useState, type DependencyList } from 'react';
 interface UseFetchState<T> {
   data: T | null;
   isLoading: boolean;
-  error: string | null;
+  error: Error | null;
 }
 
 export function useFetch<T>(
@@ -12,7 +12,7 @@ export function useFetch<T>(
 ): UseFetchState<T> {
   const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -26,7 +26,9 @@ export function useFetch<T>(
       })
       .catch((err) => {
         if (err instanceof DOMException && err.name === 'AbortError') return;
-        setError(err instanceof Error ? err.message : 'Something went wrong.');
+        setError(
+          err instanceof Error ? err : new Error('Something went wrong.'),
+        );
       })
       .finally(() => {
         if (!controller.signal.aborted) setIsLoading(false);

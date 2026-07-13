@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
+import { ApiError } from '../../api/client';
 import { fetchCharacterById } from '../../api/characters';
 import { useFetch } from '../../hooks/useFetch';
 import type { Character } from '../../types';
@@ -21,7 +22,20 @@ function Profile() {
   }
 
   if (error) {
-    console.error(error);
+    const isNotFound = error instanceof ApiError && error.status === 404;
+
+    return (
+      <section className="section">
+        <div className="container">
+          <div className={styles.wrapper}>
+            <h1 className={styles.name}>
+              {isNotFound ? 'Character not found.' : 'Something went wrong. Please try again.'}
+            </h1>
+            <Link className={styles.link} to="/">Back to Home</Link>
+          </div>
+        </div>
+      </section>
+    );
   }
 
   return (

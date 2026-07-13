@@ -6,6 +6,7 @@ import type { CharacterListResponse } from '../../types';
 import Pagination from '../Pagination/Pagination';
 import Search from '../Search/Search';
 import styles from './Home.module.css';
+import { ApiError } from '../../api/client';
 
 function Home() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,12 +27,8 @@ function Home() {
     [currentPage, debouncedSearchTerm],
   );
 
-  const hasNoResults = Boolean(error?.includes('status 404'));
+  const hasNoResults = error instanceof ApiError && error.status === 404;
   const characters = data?.results ?? [];
-
-  if (error && !hasNoResults) {
-    console.error(error);
-  }
 
   return (
     <section className='section'>
@@ -53,6 +50,12 @@ function Home() {
                 <tr>
                   <td className={styles.emptyState} colSpan={4}>
                     Loading...
+                  </td>
+                </tr>
+              ) : error && !hasNoResults ? (
+                <tr>
+                  <td className={styles.emptyState} colSpan={4}>
+                    Something went wrong. Please try again.
                   </td>
                 </tr>
               ) : hasNoResults || characters.length === 0 ? (
