@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchCharacters } from '../../api/characters';
 import { useFetch } from '../../hooks/useFetch';
 import type { CharacterListResponse } from '../../types';
@@ -10,24 +10,28 @@ import styles from './Home.module.css';
 function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
 
-	const { data, isLoading, error } = useFetch<CharacterListResponse>(
-    (signal) => fetchCharacters(currentPage, signal),
-    [currentPage],
-	);
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      setCurrentPage(1);
+      setDebouncedSearchTerm(searchTerm.trim());
+    }, 300);
 
-  const filteredCharacters =
-    data?.results.filter((character) =>
-      character.name.toLowerCase().includes(searchTerm.toLowerCase().trim()),
-    ) ?? [];
+    return () => window.clearTimeout(timeoutId);
+  }, [searchTerm]);
 
-	if (isLoading) {
-		return <h1>Loading...</h1>;
-	}
+  const { data, isLoading, error } = useFetch<CharacterListResponse>(
+    (signal) => fetchCharacters(currentPage, debouncedSearchTerm, signal),
+    [currentPage, debouncedSearchTerm],
+  );
 
-	if (error) {
-		console.error(error);
-	}
+  const hasNoResults = Boolean(error?.includes('status 404'));
+  const characters = data?.results ?? [];
+
+  if (error && !hasNoResults) {
+    console.error(error);
+  }
 
   return (
     <section className='section'>
@@ -45,14 +49,20 @@ function Home() {
               </tr>
             </thead>
             <tbody>
-              {filteredCharacters.length === 0 ? (
+              {isLoading && characters.length === 0 ? (
+                <tr>
+                  <td className={styles.emptyState} colSpan={4}>
+                    Loading...
+                  </td>
+                </tr>
+              ) : hasNoResults || characters.length === 0 ? (
                 <tr>
                   <td className={styles.emptyState} colSpan={4}>
                     No characters found for "{searchTerm}".
                   </td>
                 </tr>
               ) : (
-                filteredCharacters.map((character) => (
+                characters.map((character) => (
                   <tr key={character.id}>
                     <td>
                       <img
@@ -81,7 +91,7 @@ function Home() {
         <Pagination
           currentPage={currentPage}
           onPageChange={setCurrentPage}
-          totalPages={data?.info.pages ?? 1}
+          totalPages={hasNoResults ? 1 : (data?.info.pages ?? 1)}
         />
       </div>
     </section>

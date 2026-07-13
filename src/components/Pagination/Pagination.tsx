@@ -11,29 +11,28 @@ function Pagination({
   onPageChange,
   totalPages,
 }: PaginationProps) {
-  if (totalPages <= 1) {
-    return null;
-  }
+  const safeTotalPages = Math.max(1, totalPages);
+  const safeCurrentPage = Math.min(Math.max(1, currentPage), safeTotalPages);
 
   return (
     <nav className={styles.pagination}>
       <button
         className={styles.control}
-        disabled={currentPage === 1}
-        onClick={() => onPageChange(currentPage - 1)}
+        disabled={safeCurrentPage === 1}
+        onClick={() => onPageChange(safeCurrentPage - 1)}
         type='button'
       >
         Previous
       </button>
 
       <p className={styles.status}>
-        Page {currentPage} of {totalPages}
+        Page {safeCurrentPage} of {safeTotalPages}
       </p>
 
       <button
         className={styles.control}
-        disabled={currentPage === totalPages}
-        onClick={() => onPageChange(currentPage + 1)}
+        disabled={safeCurrentPage === safeTotalPages}
+        onClick={() => onPageChange(safeCurrentPage + 1)}
         type='button'
       >
         Next
