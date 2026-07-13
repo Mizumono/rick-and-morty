@@ -1,15 +1,15 @@
-import { fetchJson } from './client';
-import type { Character, CharacterListResponse } from '../types';
+import { fetchJson } from "./client";
+import type { Character, CharacterListResponse } from "../types";
 
 export function fetchCharacters(
   page = 1,
-  name = '',
+  name = "",
   signal?: AbortSignal,
 ): Promise<CharacterListResponse> {
   const query = new URLSearchParams({ page: String(page) });
 
   if (name.trim()) {
-    query.set('name', name.trim());
+    query.set("name", name.trim());
   }
 
   return fetchJson<CharacterListResponse>(

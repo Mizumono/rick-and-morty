@@ -1,11 +1,11 @@
-const BASE_URL = 'https://rickandmortyapi.com/api';
+const BASE_URL = "https://rickandmortyapi.com/api";
 
 export class ApiError extends Error {
   status: number;
 
   constructor(message: string, status: number) {
     super(message);
-    this.name = 'ApiError';
+    this.name = "ApiError";
     this.status = status;
   }
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState, type DependencyList } from 'react';
+import { useEffect, useState, type DependencyList } from "react";
 
 interface UseFetchState<T> {
   data: T | null;
@@ -25,9 +25,9 @@ export function useFetch<T>(
         setData(result);
       })
       .catch((err) => {
-        if (err instanceof DOMException && err.name === 'AbortError') return;
+        if (err instanceof DOMException && err.name === "AbortError") return;
         setError(
-          err instanceof Error ? err : new Error('Something went wrong.'),
+          err instanceof Error ? err : new Error("Something went wrong."),
         );
       })
       .finally(() => {

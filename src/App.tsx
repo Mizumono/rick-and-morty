@@ -1,6 +1,6 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
-import Home from './components/Home/Home';
-import Profile from './components/Profile/Profile';
+import { Navigate, Route, Routes } from "react-router-dom";
+import Home from "./components/Home/Home";
+import Profile from "./components/Profile/Profile";
 
 function App() {
   return (
@@ -10,6 +10,6 @@ function App() {
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
-};
+}
 
 export default App;

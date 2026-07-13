@@ -1,17 +1,17 @@
-import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { fetchCharacters } from '../../api/characters';
-import { useFetch } from '../../hooks/useFetch';
-import type { CharacterListResponse } from '../../types';
-import Pagination from '../Pagination/Pagination';
-import Search from '../Search/Search';
-import styles from './Home.module.css';
-import { ApiError } from '../../api/client';
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { fetchCharacters } from "../../api/characters";
+import { useFetch } from "../../hooks/useFetch";
+import type { CharacterListResponse } from "../../types";
+import Pagination from "../Pagination/Pagination";
+import Search from "../Search/Search";
+import styles from "./Home.module.css";
+import { ApiError } from "../../api/client";
 
 function Home() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
 
   useEffect(() => {
     const timeoutId = window.setTimeout(() => {
@@ -31,11 +31,10 @@ function Home() {
   const characters = data?.results ?? [];
 
   return (
-    <section className='section'>
-      <div className='container'>
+    <section className="section">
+      <div className="container">
         <Search onSearchChange={setSearchTerm} searchTerm={searchTerm} />
         <div className={styles.wrapper}>
-
           <table className={styles.table}>
             <thead>
               <tr>
@@ -71,7 +70,7 @@ function Home() {
                       <img
                         alt={character.name}
                         className={styles.avatar}
-                        loading='lazy'
+                        loading="lazy"
                         src={character.image}
                       />
                     </td>

@@ -1,4 +1,4 @@
-import styles from './Pagination.module.css';
+import styles from "./Pagination.module.css";
 
 interface PaginationProps {
   currentPage: number;
@@ -20,7 +20,7 @@ function Pagination({
         className={styles.control}
         disabled={safeCurrentPage === 1}
         onClick={() => onPageChange(safeCurrentPage - 1)}
-        type='button'
+        type="button"
       >
         Previous
       </button>
@@ -33,7 +33,7 @@ function Pagination({
         className={styles.control}
         disabled={safeCurrentPage === safeTotalPages}
         onClick={() => onPageChange(safeCurrentPage + 1)}
-        type='button'
+        type="button"
       >
         Next
       </button>
