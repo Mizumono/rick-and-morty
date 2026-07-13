@@ -35,60 +35,62 @@ function Home() {
       <div className="container">
         <Search onSearchChange={setSearchTerm} searchTerm={searchTerm} />
         <div className={styles.wrapper}>
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>Avatar</th>
-                <th>Name</th>
-                <th>Species</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {isLoading && characters.length === 0 ? (
+          <div className={styles.scrollArea}>
+            <table className={styles.table}>
+              <thead>
                 <tr>
-                  <td className={styles.emptyState} colSpan={4}>
-                    Loading...
-                  </td>
+                  <th>Avatar</th>
+                  <th>Name</th>
+                  <th>Species</th>
+                  <th>Status</th>
                 </tr>
-              ) : error && !hasNoResults ? (
-                <tr>
-                  <td className={styles.emptyState} colSpan={4}>
-                    Something went wrong. Please try again.
-                  </td>
-                </tr>
-              ) : hasNoResults || characters.length === 0 ? (
-                <tr>
-                  <td className={styles.emptyState} colSpan={4}>
-                    No characters found for "{searchTerm}".
-                  </td>
-                </tr>
-              ) : (
-                characters.map((character) => (
-                  <tr key={character.id}>
-                    <td>
-                      <img
-                        alt={character.name}
-                        className={styles.avatar}
-                        loading="lazy"
-                        src={character.image}
-                      />
+              </thead>
+              <tbody>
+                {isLoading && characters.length === 0 ? (
+                  <tr>
+                    <td className={styles.emptyState} colSpan={4}>
+                      Loading...
                     </td>
-                    <td>
-                      <Link
-                        className={styles.link}
-                        to={`/profile/${character.id}`}
-                      >
-                        {character.name}
-                      </Link>
-                    </td>
-                    <td>{character.species}</td>
-                    <td>{character.status}</td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                ) : error && !hasNoResults ? (
+                  <tr>
+                    <td className={styles.emptyState} colSpan={4}>
+                      Something went wrong. Please try again.
+                    </td>
+                  </tr>
+                ) : hasNoResults || characters.length === 0 ? (
+                  <tr>
+                    <td className={styles.emptyState} colSpan={4}>
+                      No characters found for "{searchTerm}".
+                    </td>
+                  </tr>
+                ) : (
+                  characters.map((character) => (
+                    <tr key={character.id}>
+                      <td>
+                        <img
+                          alt={character.name}
+                          className={styles.avatar}
+                          loading="lazy"
+                          src={character.image}
+                        />
+                      </td>
+                      <td>
+                        <Link
+                          className={styles.link}
+                          to={`/profile/${character.id}`}
+                        >
+                          {character.name}
+                        </Link>
+                      </td>
+                      <td>{character.species}</td>
+                      <td>{character.status}</td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
         <Pagination
           currentPage={currentPage}

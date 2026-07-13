@@ -85,6 +85,10 @@
   text-decoration: none;
 }
 
+.link:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 768px) {
   .wrapper {
     padding: 20px;

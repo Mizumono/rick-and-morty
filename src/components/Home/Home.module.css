@@ -5,8 +5,13 @@
   margin-bottom: 16px;
 }
 
+.scrollArea {
+  overflow-x: auto;
+}
+
 .table {
   border-collapse: collapse;
+  min-width: 480px;
   width: 100%;
 }
 
@@ -49,6 +54,12 @@
 .link {
   color: inherit;
   text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
 }
 
 .emptyState {

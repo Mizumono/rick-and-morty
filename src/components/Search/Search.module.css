@@ -2,7 +2,7 @@
   align-items: center;
   display: flex;
   gap: 12px;
-  padding: 16px;
+  padding: 16px 0;
 }
 
 .searchLabel {
