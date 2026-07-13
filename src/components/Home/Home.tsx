@@ -1,13 +1,17 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import { fetchCharacters } from '../../api/characters';
 import { useFetch } from '../../hooks/useFetch';
 import type { CharacterListResponse } from '../../types';
+import Pagination from '../Pagination/Pagination';
 import styles from './Home.module.css';
 
 function Home() {
+  const [currentPage, setCurrentPage] = useState(1);
+
 	const { data, isLoading, error } = useFetch<CharacterListResponse>(
-		(signal) => fetchCharacters(1, signal),
-		[],
+    (signal) => fetchCharacters(currentPage, signal),
+    [currentPage],
 	);
 
 	if (isLoading) {
@@ -18,7 +22,7 @@ function Home() {
 		console.error(error);
 	}
 
-	return (
+  return (
     <section className='section'>
       <div className='container'>
         <div className={styles.wrapper}>
@@ -57,6 +61,11 @@ function Home() {
             </tbody>
           </table>
         </div>
+        <Pagination
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+          totalPages={data?.info.pages ?? 1}
+        />
       </div>
     </section>
   );
