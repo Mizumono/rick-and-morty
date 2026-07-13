@@ -1,0 +1,34 @@
+.searchRow {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+}
+
+.searchLabel {
+  color: #1f1f1f;
+  white-space: nowrap;
+}
+
+.searchInput {
+  background-color: #fff;
+  border: 1px solid #d8d5ce;
+  border-radius: 8px;
+  color: #1f1f1f;
+  flex: 1;
+  font: inherit;
+  min-width: 180px;
+  padding: 10px 12px;
+}
+
+.searchInput:focus {
+  border-color: #ff451a;
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .searchRow {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
